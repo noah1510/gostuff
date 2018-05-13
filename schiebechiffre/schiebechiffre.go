@@ -118,17 +118,21 @@ loop:
 					} else {
 						println("Something went wrong:" + err.Error())
 					}
+
 				//None of the above
 				default:
 					println("\n------------------------------\n")
 					println("not a valid command!")
 				}
+
 			} else {
 				println("input is not a number" + err.Error())
 			}
+
 		} else {
 			println("Some error with your input" + err.Error())
 		}
+
 	}
 
 }
@@ -146,10 +150,9 @@ func readString() (string, error) {
 }
 
 func encrypt(input *string, k byte) (*string, error) {
-	nums := []byte(*input)
-	output := make([]byte, len(nums))
-	for i := range nums {
-		output[i] = byte(uint((nums[i] + k)) % 256)
+	output := make([]byte, len(*input))
+	for i := range *input {
+		output[i] = byte(uint(((*input)[i] + k)) % 256)
 	}
 	sOutput := string(output)
 	return &sOutput, nil
@@ -157,10 +160,9 @@ func encrypt(input *string, k byte) (*string, error) {
 }
 
 func decrypt(input *string, k byte) (*string, error) {
-	nums := []byte(*input)
-	output := make([]byte, len(nums))
-	for i := range nums {
-		output[i] = byte(uint((nums[i] - k)) % 256)
+	output := make([]byte, len(*input))
+	for i := range *input {
+		output[i] = byte(uint(((*input)[i] - k)) % 256)
 	}
 	sOutput := string(output)
 	return &sOutput, nil
