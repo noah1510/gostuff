@@ -108,6 +108,7 @@ loop:
 					} else {
 						println("Something went wrong:" + err.Error())
 					}
+
 				//None of the above
 				default:
 					println("\n------------------------------\n")
@@ -136,11 +137,10 @@ func readString() (string, error) {
 }
 
 func encrypt(input *string, k *string) (*string, error) {
-	in := []byte(*input)
 	key := []byte(*k)
-	output := make([]byte, len(in))
-	for i := range in {
-		output[i] = byte(uint((in[i] + key[i%len(key)])) % 256)
+	output := make([]byte, len(*input))
+	for i := range *input {
+		output[i] = byte(uint(((*input)[i] + key[i%len(key)])) % 256)
 	}
 	sOutput := string(output)
 	return &sOutput, nil
@@ -148,11 +148,10 @@ func encrypt(input *string, k *string) (*string, error) {
 }
 
 func decrypt(input *string, k *string) (*string, error) {
-	in := []byte(*input)
 	key := []byte(*k)
-	output := make([]byte, len(in))
-	for i := range in {
-		output[i] = byte(uint((in[i] - key[i%len(key)])) % 256)
+	output := make([]byte, len(*input))
+	for i := range *input {
+		output[i] = byte(uint(((*input)[i] - key[i%len(key)])) % 256)
 	}
 	sOutput := string(output)
 	return &sOutput, nil
